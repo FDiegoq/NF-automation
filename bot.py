@@ -4,15 +4,13 @@ import os
 bot.PAUSE=1
 def abrir_login(): #função para abrir o login do site da prefeitura
     bot.hotkey('alt', 'tab')
-    bot.click(x=1101, y=243)
-    bot.moveTo(x=1102, y=302)
-    bot.click(x=1102, y=302)
+    bot.click(x=756, y=229)
+    bot.moveTo(x=754, y=282)                                
+    bot.click(x=754, y=282)
     bot.sleep(5)
-    bot.press('tab', presses=8)
-    bot.press('enter')
-    bot.press('tab', presses=8)        
-    bot.press('enter')
-    bot.click(x=1483, y=429)  
+    bot.click(bot.locateCenterOnScreen('nfs.png'))
+    bot.click(bot.locateCenterOnScreen('nfs2.png'))        
+    bot.click(x=1172, y=436) 
 
 def get_field_positions(): #função que pega as posições dos campos CNPJ, CPF e SENHA
     locate_cnpj=bot.locateCenterOnScreen('cnpj.png')
