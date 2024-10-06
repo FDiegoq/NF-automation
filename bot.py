@@ -13,7 +13,7 @@ def abrir_login(): #função para abrir o login do site da prefeitura
     bot.click(x=989, y=922)
 def get_field_positions(): #função que pega as posições dos campos CNPJ, CPF e SENHA
     locate_cnpj=bot.locateCenterOnScreen('botoes/cnpj.png')
-    locate_cpf=bot.locateCenterOnScreen('cpf.png')
+    locate_cpf=bot.locateCenterOnScreen('botoes/cpf.png')
     locate_senha=bot.locateCenterOnScreen('botoes/senha.png')
     locate_entrar=bot.locateCenterOnScreen('botoes/entrar.png')
     context={'cnpj': locate_cnpj, #colocando as posições em um dicionário para acessar uma por uma depois
@@ -49,11 +49,17 @@ def get_infos(arquivo):
             if len(partes) == 3:
                 credenciais.append(partes)  # Adiciona as 3 informaçoes na lista
     return credenciais
-bot.sleep(1)
+
+def get_relatorios():
+    bot.click(bot.locateCenterOnScreen())
+    bot.click(' ')
+
 abrir_login()
+bot.sleep(1)
 credenciais = get_infos('teste-db.txt')
 for cnpj, cpf, senha in credenciais:
     fill_login(cnpj, cpf, senha)
+    bot.sleep(8)
 
 #falta fazer a parte de abrir o txt, pegar as informações de cnpj, colar no cnpj, depois cpf e senha e assim, fazer o login de cada empresa
 
