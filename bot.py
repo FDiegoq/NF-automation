@@ -1,22 +1,21 @@
 import pyautogui as bot
-import pygetwindow as gw
-import os
 bot.PAUSE=1
 def abrir_login(): #função para abrir o login do site da prefeitura
     bot.hotkey('alt', 'tab')
-    bot.click(x=756, y=229)
-    bot.moveTo(x=754, y=282)                                
-    bot.click(x=754, y=282)
+    cidadao = bot.locateCenterOnScreen('botoes/cidadao.png')
+    bot.click(cidadao)
+    y_offset=50
+    bot.moveTo(cidadao.x, cidadao.y+y_offset)                               
+    bot.click()
     bot.sleep(5)
-    bot.click(bot.locateCenterOnScreen('nfs.png'))
-    bot.click(bot.locateCenterOnScreen('nfs2.png'))        
-    bot.click(x=1172, y=436) 
-
+    bot.click(bot.locateCenterOnScreen('botoes/nfs.png'))
+    bot.click(bot.locateCenterOnScreen('botoes/nfs2.png'))
+    bot.click(x=989, y=922)
 def get_field_positions(): #função que pega as posições dos campos CNPJ, CPF e SENHA
-    locate_cnpj=bot.locateCenterOnScreen('cnpj.png')
+    locate_cnpj=bot.locateCenterOnScreen('botoes/cnpj.png')
     locate_cpf=bot.locateCenterOnScreen('cpf.png')
-    locate_senha=bot.locateCenterOnScreen('senha.png')
-    locate_entrar=bot.locateCenterOnScreen('entrar.png')
+    locate_senha=bot.locateCenterOnScreen('botoes/senha.png')
+    locate_entrar=bot.locateCenterOnScreen('botoes/entrar.png')
     context={'cnpj': locate_cnpj, #colocando as posições em um dicionário para acessar uma por uma depois
             'cpf':locate_cpf, 
             'senha':locate_senha,
