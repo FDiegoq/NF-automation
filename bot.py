@@ -2,20 +2,22 @@ import pyautogui as bot
 bot.PAUSE=1.5
 def abrir_login(): #função para abrir o login do site da prefeitura
     bot.hotkey('alt', 'tab')
-    cidadao = bot.locateCenterOnScreen('botoes/cidadao.png')
+    cidadao = bot.locateCenterOnScreen('botoes/cidadao.png', confidence=0.8)
     bot.click(cidadao)
     y_offset=50
     bot.moveTo(cidadao.x, cidadao.y+y_offset)                               
     bot.click()
-    bot.click(bot.locateCenterOnScreen('botoes/nfs.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/nfs2.png'))
+    bot.sleep(3)
+    bot.click(bot.locateCenterOnScreen('botoes/nfs.png', confidence=0.8))
+    bot.sleep(2)
+    bot.click(bot.locateCenterOnScreen('botoes/nfs2.png', confidence=0.8))
     bot.click(x=989, y=922)
 
 def get_field_positions(): #função que pega as posições dos campos CNPJ, CPF e SENHA
-    locate_cnpj=bot.locateCenterOnScreen('botoes/cnpj.png')
-    locate_cpf=bot.locateCenterOnScreen('botoes/cpf.png')
-    locate_senha=bot.locateCenterOnScreen('botoes/senha.png')
-    locate_entrar=bot.locateCenterOnScreen('botoes/entrar.png')
+    locate_cnpj=bot.locateCenterOnScreen('botoes/cnpj.png', confidence=0.8)
+    locate_cpf=bot.locateCenterOnScreen('botoes/cpf.png', confidence=0.8)
+    locate_senha=bot.locateCenterOnScreen('botoes/senha.png', confidence=0.8)
+    locate_entrar=bot.locateCenterOnScreen('botoes/entrar.png', confidence=0.8)
     context={'cnpj': locate_cnpj, #colocando as posições em um dicionário para acessar uma por uma depois
             'cpf':locate_cpf, 
             'senha':locate_senha,
@@ -47,19 +49,21 @@ def get_infos(arquivo):
     return credenciais
 
 def get_relatorios():
-    bot.click(bot.locateCenterOnScreen('botoes/relatorio.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/date.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/back.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/day1.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/date.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/back.png'))
-    bot.click(bot.locateCenterOnScreen('botoes/day30.png'))
+    bot.click(bot.locateCenterOnScreen('botoes/relatorio.png', confidence=0.8))
+    bot.click(bot.locateCenterOnScreen('botoes/date.png', confidence=0.8))
+    bot.click(bot.locateCenterOnScreen('botoes/back.png', confidence=0.8))
+    bot.click(bot.locateCenterOnScreen('botoes/day1.png', confidence=0.8)) #setando a data n calendario para dia 1
+    #bot.click(bot.locateCenterOnScreen('botoes/date.png', confidence=0.8))
+    #bot.click(bot.locateCenterOnScreen('botoes/back.png', confidence=0.8))
+    #bot.click(bot.locateCenterOnScreen('botoes/day30.png', confidence=0.8))
 
 bot.sleep(1)
-#credenciais = get_infos('teste-db.txt')#falta fazer a parte de abrir o txt, pegar as informações de cnpj, colar no cnpj, depois cpf e senha e assim, fazer o login de cada empresa
-#for cnpj, cpf, senha in credenciais:
-    #fill_login(cnpj, cpf, senha)
-    #bot.sleep(5)
-get_relatorios()
+abrir_login()
+credenciais = get_infos('teste-db.txt')#falta fazer a parte de abrir o txt, pegar as informações de cnpj, colar no cnpj, depois cpf e senha e assim, fazer o login de cada empresa
+for cnpj, cpf, senha in credenciais:
+    fill_login(cnpj, cpf, senha)
+    bot.sleep(8)
+    get_relatorios()
+
 
 
